@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Orders | My Store</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/products">
+                Products
+            </a>
+
+            <a href="/cart">
+                Cart
+            </a>
+
+            <a href="/orders">
+                Orders
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ORDERS PAGE -->
+
+    <main class="container orders-page">
+
+
+        <!-- HEADER -->
+
+        <div class="orders-header">
+
+            <div>
+
+                <p class="small-label">
+                    ORDER MANAGEMENT
+                </p>
+
+                <h1>
+                    Orders
+                </h1>
+
+                <p class="orders-subtitle">
+                    Orders received from WooCommerce.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/products"
+                class="continue-link"
+            >
+
+                <span class="continue-arrow">
+                    ←
+                </span>
+
+                Back to Shop
+
+            </a>
+
+        </div>
+
+
+        <!-- EMPTY STATE -->
+
+        <section
+            class="empty-orders"
+            th:if="${orders.isEmpty()}"
+        >
+
+            <div class="empty-orders-icon">
+                📦
+            </div>
+
+            <h2>
+                No orders yet
+            </h2>
+
+            <p>
+                WooCommerce orders received through the webhook
+                will appear here.
+            </p>
+
+            <a
+                href="/products"
+                class="btn"
+            >
+                Browse Products
+            </a>
+
+        </section>
+
+
+        <!-- ORDERS -->
+
+        <section
+            class="orders-card"
+            th:if="${!orders.isEmpty()}"
+        >
+
+
+            <!-- DESKTOP TABLE -->
+
+            <div class="orders-table-wrapper">
+
+                <table class="orders-table">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Order
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Payment
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Updated
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <tr th:each="order : ${orders}">
+
+
+                            <!-- ORDER -->
+
+                            <td>
+
+                                <div class="order-number">
+
+                                    <strong
+                                        th:text="'#' + ${order.orderNumber}"
+                                    >
+                                        #21
+                                    </strong>
+
+                                    <span>
+
+                                        Woo ID:
+
+                                        <span
+                                            th:text="${order.wooCommerceOrderId}"
+                                        >
+                                            21
+                                        </span>
+
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- CUSTOMER -->
+
+                            <td>
+
+                                <div class="order-customer">
+
+                                    <strong
+                                        th:text="${order.customerName}"
+                                    >
+                                        Customer Name
+                                    </strong>
+
+                                    <span
+                                        th:text="${order.email}"
+                                    >
+                                        customer@example.com
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- PAYMENT -->
+
+                            <td>
+
+                                <span
+                                    class="payment-badge"
+                                    th:text="${order.paymentMethod}"
+                                >
+                                    Stripe
+                                </span>
+
+                            </td>
+
+
+                            <!-- TOTAL -->
+
+                            <td>
+
+                                <strong class="order-total">
+
+                                    <span
+                                        th:text="${order.currency}"
+                                    >
+                                        USD
+                                    </span>
+
+                                    <span
+                                        th:text="${order.total}"
+                                    >
+                                        100.00
+                                    </span>
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                <span
+                                    class="orders-status"
+
+                                    th:classappend="
+                                        ${order.status == 'completed'}
+                                        ? ' status-completed'
+                                        : (${order.status == 'processing'}
+                                        ? ' status-processing'
+                                        : ' status-default')
+                                    "
+
+                                    th:text="${order.status}"
+                                >
+                                    completed
+                                </span>
+
+                            </td>
+
+
+                            <!-- UPDATED -->
+
+                            <td>
+
+                                <span
+                                    class="order-date"
+                                    th:text="${order.lastUpdated}"
+                                >
+                                    Date
+                                </span>
+
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- INFO -->
+
+        <div
+            class="orders-info"
+            th:if="${!orders.isEmpty()}"
+        >
+
+            <div class="orders-info-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Synced with WooCommerce
+                </strong>
+
+                <p>
+                    Order status changes received through your
+                    WooCommerce webhook are stored in Spring Boot.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        © 2026 My Store
+
+    </footer>
+
+
+</body>
+
+</html>

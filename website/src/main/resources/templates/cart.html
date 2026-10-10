@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Shopping Cart | My Store</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/products">
+                Products
+            </a>
+
+            <a href="/cart">
+                Cart
+            </a>
+
+            <a href="/orders">
+                Orders
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CART -->
+
+    <main class="container cart-page">
+
+
+        <div class="cart-header">
+
+            <div>
+
+                <p class="small-label">
+                    YOUR BAG
+                </p>
+
+                <h1>
+                    Shopping Cart
+                </h1>
+
+            </div>
+
+
+            <!-- CONTINUE SHOPPING BUTTON -->
+
+            <a
+                href="/products"
+                class="continue-link"
+            >
+
+                <span class="continue-arrow">
+                    ←
+                </span>
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+
+        <!-- EMPTY CART -->
+
+        <div
+            class="empty-cart"
+            th:if="${cart.isEmpty()}"
+        >
+
+            <div class="empty-cart-icon">
+                🛒
+            </div>
+
+            <h2>
+                Your cart is empty
+            </h2>
+
+            <p>
+                You haven't added any products yet.
+            </p>
+
+            <a
+                href="/products"
+                class="btn"
+            >
+                Browse Products
+            </a>
+
+        </div>
+
+
+        <!-- CART CONTENT -->
+
+        <div
+            class="cart-layout"
+            th:if="${!cart.isEmpty()}"
+        >
+
+
+            <!-- CART ITEMS -->
+
+            <section class="cart-items">
+
+
+                <article
+                    class="cart-item"
+                    th:each="item : ${cart}"
+                >
+
+
+                    <!-- IMAGE -->
+
+                    <div class="cart-image-box">
+
+                        <img
+                            class="cart-product-image"
+
+                            th:if="${item.product.images != null and !item.product.images.isEmpty()}"
+
+                            th:src="${item.product.images[0].src}"
+
+                            th:alt="${item.product.name}"
+                        >
+
+                    </div>
+
+
+                    <!-- ITEM INFO -->
+
+                    <div class="cart-item-info">
+
+
+                        <div class="cart-item-top">
+
+                            <div>
+
+                                <h2
+                                    th:text="${item.product.name}"
+                                >
+                                    Product
+                                </h2>
+
+                                <p
+                                    class="cart-unit-price"
+                                    th:text="${item.product.displayPrice}"
+                                >
+                                    $100
+                                </p>
+
+                            </div>
+
+
+                            <!-- REMOVE -->
+
+                            <form
+                                action="/cart/remove"
+                                method="post"
+                            >
+
+                                <input
+                                    type="hidden"
+                                    name="productId"
+                                    th:value="${item.product.id}"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="remove-button"
+                                >
+                                    Remove
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <div class="cart-bottom-row">
+
+
+                            <!-- QUANTITY -->
+
+                            <div class="quantity-control">
+
+
+                                <form
+                                    action="/cart/decrease"
+                                    method="post"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="productId"
+                                        th:value="${item.product.id}"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="quantity-button"
+                                    >
+                                        −
+                                    </button>
+
+                                </form>
+
+
+                                <span
+                                    class="quantity-number"
+                                    th:text="${item.quantity}"
+                                >
+                                    1
+                                </span>
+
+
+                                <form
+                                    action="/cart/increase"
+                                    method="post"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="productId"
+                                        th:value="${item.product.id}"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="quantity-button"
+                                    >
+                                        +
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+
+                            <!-- TOTAL -->
+
+                            <div class="item-total">
+
+                                <span>
+                                    Total
+                                </span>
+
+                                <strong>
+
+                                    $
+
+                                    <span
+                                        th:text="${item.total}"
+                                    >
+                                        100
+                                    </span>
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <aside class="cart-summary">
+
+                <h2>
+                    Order Summary
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong>
+
+                        $
+
+                        <span
+                            th:text="${cartTotal}"
+                        >
+                            100
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Shipping
+                    </span>
+
+                    <span>
+                        Calculated at checkout
+                    </span>
+
+                </div>
+
+
+                <div class="summary-divider">
+                </div>
+
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+
+                        $
+
+                        <span
+                            th:text="${cartTotal}"
+                        >
+                            100
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <a
+                    href="/checkout"
+                    class="checkout-button"
+                >
+                    Proceed to Checkout
+                </a>
+
+
+                <p class="secure-checkout">
+                    Secure checkout
+                </p>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+
+        © 2026 My Store
+
+    </footer>
+
+
+</body>
+
+</html>

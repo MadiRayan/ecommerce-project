@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Payment Successful | My Store</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/products">Products</a>
+            <a href="/cart">Cart</a>
+            <a href="/orders">Orders</a>
+        </div>
+
+    </nav>
+
+
+    <main class="container payment-result-page">
+
+        <section class="payment-result-card">
+
+            <div class="payment-success-icon">
+                ✓
+            </div>
+
+            <p class="small-label">
+                PAYMENT COMPLETE
+            </p>
+
+            <h1>
+                Payment Successful
+            </h1>
+
+            <p class="payment-result-message">
+                Your payment was completed successfully
+                and your order is now being processed.
+            </p>
+
+
+            <div
+                class="payment-order-box"
+                th:if="${orderId != null}"
+            >
+
+                <span>
+                    Order Number
+                </span>
+
+                <strong
+                    th:text="'#' + ${orderId}"
+                >
+                    #21
+                </strong>
+
+            </div>
+
+
+            <div class="payment-info-box">
+
+                <div class="payment-info-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <strong>
+                        Payment received
+                    </strong>
+
+                    <p>
+                        You can monitor your order status
+                        from the Orders page.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="payment-result-actions">
+
+                <a
+                    href="/orders"
+                    class="payment-primary-button"
+                >
+                    View Orders
+                </a>
+
+                <a
+                    href="/products"
+                    class="payment-secondary-button"
+                >
+                    Continue Shopping
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+        © 2026 My Store
+    </footer>
+
+</body>
+
+</html>

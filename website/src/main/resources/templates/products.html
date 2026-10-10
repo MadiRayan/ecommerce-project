@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Products</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/products">
+                Products
+            </a>
+
+            <a href="/cart">
+                Cart
+            </a>
+
+            <a href="/orders">
+                Orders
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- PRODUCTS -->
+
+    <main class="container">
+
+
+        <h1 class="page-title">
+            Our Products
+        </h1>
+
+
+        <div class="product-grid">
+
+
+            <div
+                class="product-card"
+                th:each="product : ${products}"
+            >
+
+
+                <!-- IMAGE -->
+
+                <div class="product-image-wrapper">
+
+                    <img
+                        class="product-image"
+
+                        th:if="${product.images != null
+                            and !product.images.isEmpty()}"
+
+                        th:src="${product.images[0].src}"
+
+                        th:alt="${product.name}"
+                    >
+
+                </div>
+
+
+                <!-- NAME -->
+
+                <h2
+                    th:text="${product.name}"
+                >
+                    Product
+                </h2>
+
+
+                <!-- PRICE -->
+
+                <div
+                    class="product-price"
+                    th:text="${product.displayPrice}"
+                >
+                    $0
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div
+                    class="stock"
+                    th:text="${product.stockText}"
+                >
+                    In Stock
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <a
+                    class="btn"
+
+                    th:href="@{/products/{id}
+                        (id=${product.id})}"
+                >
+                    View Product
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+    <footer class="footer">
+
+        © 2026 My Store
+
+    </footer>
+
+
+</body>
+
+</html>

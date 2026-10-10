@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Checkout | My Store</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/products">
+                Products
+            </a>
+
+            <a href="/cart">
+                Cart
+            </a>
+
+            <a href="/orders">
+                Orders
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CHECKOUT PAGE -->
+
+    <main class="container checkout-page">
+
+
+        <!-- HEADER -->
+
+        <div class="checkout-header">
+
+            <div>
+
+                <p class="small-label">
+                    CHECKOUT
+                </p>
+
+                <h1>
+                    Complete Your Order
+                </h1>
+
+            </div>
+
+
+            <a
+                href="/cart"
+                class="continue-link"
+            >
+
+                <span class="continue-arrow">
+                    ←
+                </span>
+
+                Back to Cart
+
+            </a>
+
+        </div>
+
+
+        <!-- CHECKOUT FORM -->
+
+        <form
+            action="/checkout/place-order"
+            method="post"
+        >
+
+
+            <div class="checkout-layout">
+
+
+                <!-- LEFT SIDE -->
+
+                <section class="checkout-left">
+
+
+                    <!-- CONTACT DETAILS -->
+
+                    <div class="checkout-card">
+
+                        <div class="checkout-section-title">
+
+                            <span class="checkout-number">
+                                1
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Contact Information
+                                </h2>
+
+                                <p>
+                                    Enter your contact details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label for="firstName">
+                                    First Name
+                                </label>
+
+                                <input
+                                    id="firstName"
+                                    type="text"
+                                    name="firstName"
+                                    placeholder="John"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="lastName">
+                                    Last Name
+                                </label>
+
+                                <input
+                                    id="lastName"
+                                    type="text"
+                                    name="lastName"
+                                    placeholder="Doe"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    Email
+                                </label>
+
+                                <input
+                                    id="email"
+                                    type="email"
+                                    name="email"
+                                    placeholder="john@example.com"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="phone">
+                                    Phone
+                                </label>
+
+                                <input
+                                    id="phone"
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="050 123 4567"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SHIPPING ADDRESS -->
+
+                    <div class="checkout-card">
+
+                        <div class="checkout-section-title">
+
+                            <span class="checkout-number">
+                                2
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Shipping Address
+                                </h2>
+
+                                <p>
+                                    Where should we deliver your order?
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group full-width">
+
+                                <label for="address">
+                                    Address
+                                </label>
+
+                                <input
+                                    id="address"
+                                    type="text"
+                                    name="address"
+                                    placeholder="Street, building, apartment"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="city">
+                                    City
+                                </label>
+
+                                <input
+                                    id="city"
+                                    type="text"
+                                    name="city"
+                                    placeholder="Dubai"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="country">
+                                    Country
+                                </label>
+
+                                <select
+                                    id="country"
+                                    name="country"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select Country
+                                    </option>
+
+                                    <option value="AE">
+                                        United Arab Emirates
+                                    </option>
+
+                                    <option value="LB">
+                                        Lebanon
+                                    </option>
+
+                                    <option value="SA">
+                                        Saudi Arabia
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAYMENT -->
+
+                    <div class="checkout-card">
+
+                        <div class="checkout-section-title">
+
+                            <span class="checkout-number">
+                                3
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Payment Method
+                                </h2>
+
+                                <p>
+                                    Choose how you would like to pay.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="payment-options">
+
+
+                            <!-- CASH -->
+
+                            <label class="payment-option">
+
+                                <div class="payment-option-left">
+
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="cod"
+                                        checked
+                                    >
+
+                                    <div>
+
+                                        <strong>
+                                            Cash on Delivery
+                                        </strong>
+
+                                        <span>
+                                            Pay when your order arrives.
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="payment-icon">
+                                    $
+                                </div>
+
+                            </label>
+
+
+                            <!-- STRIPE -->
+
+                            <label class="payment-option">
+
+                                <div class="payment-option-left">
+
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="stripe"
+                                    >
+
+                                    <div>
+
+                                        <strong>
+                                            Credit / Debit Card
+                                        </strong>
+
+                                        <span>
+                                            Secure payment through Stripe.
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="payment-icon">
+                                    CARD
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- RIGHT SIDE -->
+
+                <aside class="checkout-summary">
+
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <!-- ITEMS -->
+
+                    <div
+                        class="checkout-summary-item"
+                        th:each="item : ${cart}"
+                    >
+
+
+                        <div class="checkout-item-image">
+
+                            <img
+                                th:if="${item.product.images != null and !item.product.images.isEmpty()}"
+
+                                th:src="${item.product.images[0].src}"
+
+                                th:alt="${item.product.name}"
+                            >
+
+                        </div>
+
+
+                        <div class="checkout-item-details">
+
+                            <strong
+                                th:text="${item.product.name}"
+                            >
+                                Product
+                            </strong>
+
+                            <span>
+
+                                Qty:
+
+                                <span
+                                    th:text="${item.quantity}"
+                                >
+                                    1
+                                </span>
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="checkout-item-price">
+
+                            $
+
+                            <span
+                                th:text="${item.total}"
+                            >
+                                100
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="summary-divider">
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong>
+
+                            $
+
+                            <span th:text="${cartTotal}">
+                                100
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Shipping
+                        </span>
+
+                        <span>
+                            Free
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-divider">
+                    </div>
+
+
+                    <div class="summary-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+
+                            $
+
+                            <span th:text="${cartTotal}">
+                                100
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="place-order-button"
+                    >
+                        Place Order
+                    </button>
+
+
+                    <p class="secure-checkout">
+                        Secure checkout
+                    </p>
+
+
+                </aside>
+
+
+            </div>
+
+
+        </form>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        © 2026 My Store
+
+    </footer>
+
+
+</body>
+
+</html>

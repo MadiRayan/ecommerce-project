@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Order Confirmed | My Store</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/products">
+                Products
+            </a>
+
+            <a href="/cart">
+                Cart
+            </a>
+
+            <a href="/orders">
+                Orders
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CONFIRMATION -->
+
+    <main class="container confirmation-page">
+
+
+        <section class="confirmation-card">
+
+
+            <!-- SUCCESS ICON -->
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <!-- TITLE -->
+
+            <p class="small-label">
+                ORDER CONFIRMED
+            </p>
+
+            <h1>
+                Thank You!
+            </h1>
+
+            <p class="confirmation-message">
+                Your order has been created successfully.
+            </p>
+
+
+            <!-- ORDER INFO -->
+
+            <div class="confirmation-details">
+
+
+                <div class="confirmation-row">
+
+                    <span>
+                        Order Number
+                    </span>
+
+                    <strong
+                        th:text="'#' + ${order.number}"
+                    >
+                        #21
+                    </strong>
+
+                </div>
+
+
+                <div class="confirmation-row">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong
+                        class="order-status-badge"
+                        th:text="${order.status}"
+                    >
+                        pending
+                    </strong>
+
+                </div>
+
+
+                <div class="confirmation-row">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+
+                        <span
+                            th:text="${order.currency}"
+                        >
+                            USD
+                        </span>
+
+                        <span
+                            th:text="${order.total}"
+                        >
+                            100.00
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div class="confirmation-note">
+
+                <strong>
+                    What happens next?
+                </strong>
+
+                <p>
+                    We have received your order.
+                    You can view the latest order status
+                    from the Orders page.
+                </p>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="confirmation-actions">
+
+
+                <a
+                    href="/products"
+                    class="confirmation-primary-button"
+                >
+                    Continue Shopping
+                </a>
+
+
+                <a
+                    href="/orders"
+                    class="confirmation-secondary-button"
+                >
+                    View Orders
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        © 2026 My Store
+
+    </footer>
+
+
+</body>
+
+</html>

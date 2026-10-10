@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Payment Cancelled | My Store</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/products">Products</a>
+            <a href="/cart">Cart</a>
+            <a href="/orders">Orders</a>
+        </div>
+
+    </nav>
+
+
+    <main class="container payment-result-page">
+
+        <section class="payment-result-card">
+
+            <div class="payment-cancel-icon">
+                ×
+            </div>
+
+            <p class="small-label">
+                PAYMENT NOT COMPLETED
+            </p>
+
+            <h1>
+                Payment Cancelled
+            </h1>
+
+            <p class="payment-result-message">
+                Your payment was not completed.
+                Your items are still available in your cart.
+            </p>
+
+
+            <div class="payment-warning-box">
+
+                <div class="payment-warning-icon">
+                    !
+                </div>
+
+                <div>
+
+                    <strong>
+                        Your cart is still available
+                    </strong>
+
+                    <p>
+                        Return to your cart and try
+                        checkout again whenever you're ready.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="payment-result-actions">
+
+                <a
+                    href="/cart"
+                    class="payment-primary-button"
+                >
+                    Return to Cart
+                </a>
+
+                <a
+                    href="/products"
+                    class="payment-secondary-button"
+                >
+                    Continue Shopping
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+        © 2026 My Store
+    </footer>
+
+</body>
+
+</html>

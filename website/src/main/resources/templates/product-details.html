@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title th:text="${product.name}">
+        Product Details
+    </title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            My Store
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/products">
+                Products
+            </a>
+
+            <a href="/cart">
+                Cart
+            </a>
+
+            <a href="/orders">
+                Orders
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- PRODUCT DETAILS -->
+
+    <main class="container">
+
+        <div class="product-details">
+
+
+            <!-- PRODUCT IMAGE -->
+
+            <div>
+
+                <img
+                    class="details-image"
+
+                    th:if="${product.images != null and !product.images.isEmpty()}"
+
+                    th:src="${product.images[0].src}"
+
+                    th:alt="${product.name}"
+                >
+
+            </div>
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div class="product-info">
+
+
+                <!-- BACK BUTTON -->
+
+                <a
+                    href="/products"
+                    class="back-link"
+                >
+
+                    <span class="back-arrow">
+                        ←
+                    </span>
+
+                    Back to shop
+
+                </a>
+
+
+                <!-- PRODUCT NAME -->
+
+                <h1 th:text="${product.name}">
+                    Product Name
+                </h1>
+
+
+                <!-- PRODUCT PRICE -->
+
+                <div
+                    class="price"
+                    th:text="${product.displayPrice}"
+                >
+                    $100
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="stock">
+
+                    Stock:
+
+                    <strong th:text="${product.stockText}">
+                        In Stock
+                    </strong>
+
+                </div>
+
+
+                <!-- ADD TO CART -->
+
+                <form
+                    action="/cart/add"
+                    method="post"
+                >
+
+                    <input
+                        type="hidden"
+                        name="productId"
+                        th:value="${product.id}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn"
+                    >
+                        Add to Cart
+                    </button>
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        © 2026 My Store
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Account | My Store</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            My Store
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/products">
+                Products
+            </a>
+
+            <a href="/cart">
+                Cart
+            </a>
+
+            <a href="/account">
+                My Account
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         ACCOUNT PAGE
+    ========================== -->
+
+    <main class="container account-page">
+
+
+        <!-- ACCOUNT HEADER -->
+
+        <div class="account-header">
+
+            <div>
+
+                <p class="small-label">
+                    MY ACCOUNT
+                </p>
+
+
+                <h1>
+
+                    Hello,
+
+                    <span
+                        th:text="${customer.firstName}"
+                    >
+                        Customer
+                    </span>
+
+                </h1>
+
+            </div>
+
+
+            <form
+                action="/logout"
+                method="post"
+            >
+
+                <button
+                    class="logout-button"
+                    type="submit"
+                >
+                    Logout
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- =========================
+             ACCOUNT DETAILS
+        ========================== -->
+
+        <section class="account-card">
+
+            <h2>
+                Account Details
+            </h2>
+
+
+            <div class="account-detail-row">
+
+                <span>
+                    Name
+                </span>
+
+                <strong
+                    th:text="${customer.fullName}"
+                >
+                    John Doe
+                </strong>
+
+            </div>
+
+
+            <div class="account-detail-row">
+
+                <span>
+                    Email
+                </span>
+
+                <strong
+                    th:text="${customer.email}"
+                >
+                    john@example.com
+                </strong>
+
+            </div>
+
+
+            <div class="account-detail-row">
+
+                <span>
+                    Member Since
+                </span>
+
+                <strong
+                    th:text="${customer.createdAt}"
+                >
+                    Date
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MY ORDERS
+        ========================== -->
+
+        <section class="my-orders-section">
+
+
+            <div class="my-orders-heading">
+
+                <div>
+
+                    <p class="small-label">
+                        ORDER HISTORY
+                    </p>
+
+                    <h2>
+                        My Orders
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- NO ORDERS -->
+
+            <div
+                class="my-orders-empty"
+                th:if="${orders.isEmpty()}"
+            >
+
+                <div class="my-orders-empty-icon">
+                    📦
+                </div>
+
+                <h3>
+                    No orders yet
+                </h3>
+
+                <p>
+                    Orders placed using this account's
+                    email address will appear here.
+                </p>
+
+                <a
+                    href="/products"
+                    class="btn"
+                >
+                    Start Shopping
+                </a>
+
+            </div>
+
+
+            <!-- ORDER LIST -->
+
+            <div
+                class="my-orders-card"
+                th:if="${!orders.isEmpty()}"
+            >
+
+
+                <div
+                    class="my-order"
+                    th:each="order : ${orders}"
+                >
+
+
+                    <!-- ORDER NUMBER -->
+
+                    <div class="my-order-column">
+
+                        <span class="my-order-label">
+                            Order
+                        </span>
+
+                        <strong
+                            th:text="'#' + ${order.orderNumber}"
+                        >
+                            #25
+                        </strong>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="my-order-column">
+
+                        <span class="my-order-label">
+                            Updated
+                        </span>
+
+                        <strong
+                            th:text="${order.lastUpdated}"
+                        >
+                            Date
+                        </strong>
+
+                    </div>
+
+
+                    <!-- PAYMENT -->
+
+                    <div class="my-order-column">
+
+                        <span class="my-order-label">
+                            Payment
+                        </span>
+
+                        <strong
+                            th:text="${order.paymentMethod}"
+                        >
+                            stripe
+                        </strong>
+
+                    </div>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="my-order-column">
+
+                        <span class="my-order-label">
+                            Total
+                        </span>
+
+                        <strong>
+
+                            <span
+                                th:text="${order.currency}"
+                            >
+                                USD
+                            </span>
+
+                            <span
+                                th:text="${order.total}"
+                            >
+                                100.00
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="my-order-column">
+
+                        <span class="my-order-label">
+                            Status
+                        </span>
+
+
+                        <span
+                            class="orders-status"
+
+                            th:classappend="
+                                ${order.status == 'completed'}
+                                ? ' status-completed'
+                                : (${order.status == 'processing'}
+                                ? ' status-processing'
+                                : ' status-default')
+                            "
+
+                            th:text="${order.status}"
+                        >
+                            processing
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             ACCOUNT ACTIONS
+        ========================== -->
+
+        <div class="account-actions">
+
+
+            <a
+                href="/products"
+                class="account-action-primary"
+            >
+                Continue Shopping
+            </a>
+
+
+            <a
+                href="/cart"
+                class="account-action-secondary"
+            >
+                View Cart
+            </a>
+
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        © 2026 My Store
+
+    </footer>
+
+
+</body>
+
+</html>
